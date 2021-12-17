@@ -13,12 +13,14 @@ index = 0
 obstacles: List[game.LedSprite] = []
 bird = game.create_sprite(0, 2)
 bird.set(LedSpriteProperty.BLINK, 300)
+zp = 0
 game.set_score(0)
 
 def on_forever():
-    global emptyObstacleY, ticks
+    global zp, emptyObstacleY, ticks
     while len(obstacles) > 0 and obstacles[0].get(LedSpriteProperty.X) == 0:
         obstacles.remove_at(0).delete()
+        zp += 1
     for obstacle2 in obstacles:
         obstacle2.change(LedSpriteProperty.X, -1)
     if ticks % 3 == 0:
@@ -28,6 +30,7 @@ def on_forever():
                 obstacles.append(game.create_sprite(4, index2))
     for obstacle3 in obstacles:
         if obstacle3.get(LedSpriteProperty.X) == bird.get(LedSpriteProperty.X) and obstacle3.get(LedSpriteProperty.Y) == bird.get(LedSpriteProperty.Y):
+            game.set_score(zp)
             game.game_over()
     ticks += 1
     bird.change(LedSpriteProperty.Y, input.rotation(Rotation.PITCH) / 15)
