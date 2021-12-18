@@ -47,7 +47,7 @@ basic.forever(function () {
         }
     }
     ticks += 1
-    time = 1000 - ticks * 15
+    time = 1000 - ticks * 12
     if (time > 0) {
         basic.pause(time)
     } else {
