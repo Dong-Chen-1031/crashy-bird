@@ -28,6 +28,10 @@ basic.forever(function () {
     while (obstacles.length > 0 && obstacles[0].get(LedSpriteProperty.X) == 0) {
         obstacles.removeAt(0).delete()
         zp += 1
+        if (zp % 4 == 0) {
+            music.playTone(659, music.beat(BeatFraction.Quarter))
+            music.playTone(988, music.beat(BeatFraction.Quarter))
+        }
     }
     for (let obstacle2 of obstacles) {
         obstacle2.change(LedSpriteProperty.X, -1)
@@ -42,6 +46,9 @@ basic.forever(function () {
     }
     for (let obstacle3 of obstacles) {
         if (obstacle3.get(LedSpriteProperty.X) == bird.get(LedSpriteProperty.X) && obstacle3.get(LedSpriteProperty.Y) == bird.get(LedSpriteProperty.Y)) {
+            music.playTone(392, music.beat(BeatFraction.Quarter))
+            music.playTone(349, music.beat(BeatFraction.Half))
+            music.playTone(330, music.beat(BeatFraction.Whole))
             game.setScore(zp)
             game.gameOver()
         }
