@@ -1,5 +1,22 @@
+input.onGesture(Gesture.ScreenDown, function () {
+    if (!(game.isPaused())) {
+        game.pause()
+        music.playTone(698, music.beat(BeatFraction.Quarter))
+    }
+})
 input.onButtonPressed(Button.A, function () {
     bird.change(LedSpriteProperty.Y, -1)
+})
+input.onGesture(Gesture.ScreenUp, function () {
+    if (game.isPaused()) {
+        game.resume()
+        music.playTone(698, music.beat(BeatFraction.Quarter))
+    }
+    basic.pause(2000)
+})
+input.onButtonPressed(Button.AB, function () {
+    _ = !(_)
+    music.playTone(698, music.beat(BeatFraction.Quarter))
 })
 input.onButtonPressed(Button.B, function () {
     bird.change(LedSpriteProperty.Y, 1)
@@ -9,20 +26,24 @@ let time = 0
 let emptyObstacleY = 0
 let zp = 0
 let vu6 = 0
+let _ = false
 let bird: game.LedSprite = null
 let index = 0
 bird = game.createSprite(0, 2)
 let ticks = 0
 let obstacles: game.LedSprite[] = []
+_ = true
 bird.set(LedSpriteProperty.Blink, 500)
 game.setScore(0)
 basic.forever(function () {
-    vu6 = Math.round(input.rotation(Rotation.Pitch) / 15)
-    for (let index = 0; index <= Math.abs(vu6) - 1; index++) {
-        if (vu6 > 0) {
-            bird.change(LedSpriteProperty.Y, 1)
-        } else if (vu6 < 0) {
-            bird.change(LedSpriteProperty.Y, -1)
+    if (_) {
+        vu6 = Math.round(input.rotation(Rotation.Pitch) / 15)
+        for (let index = 0; index <= Math.abs(vu6) - 1; index++) {
+            if (vu6 > 0) {
+                bird.change(LedSpriteProperty.Y, 1)
+            } else if (vu6 < 0) {
+                bird.change(LedSpriteProperty.Y, -1)
+            }
         }
     }
     while (obstacles.length > 0 && obstacles[0].get(LedSpriteProperty.X) == 0) {
