@@ -4,16 +4,26 @@ input.onButtonPressed(Button.A, function () {
 input.onButtonPressed(Button.B, function () {
     bird.change(LedSpriteProperty.Y, 1)
 })
+let time = 0
 let emptyObstacleY = 0
-let ticks = 0
 let zp = 0
+let vu6 = 0
 let bird: game.LedSprite = null
 let index = 0
 bird = game.createSprite(0, 2)
-bird.set(LedSpriteProperty.Blink, 300)
+let ticks = 0
+let obstacles: game.LedSprite[] = []
+bird.set(LedSpriteProperty.Blink, 1)
 game.setScore(0)
 basic.forever(function () {
-    let obstacles: game.LedSprite[] = []
+    vu6 = Math.round(input.rotation(Rotation.Pitch) / 15)
+    for (let index = 0; index <= Math.abs(vu6) - 1; index++) {
+        if (vu6 > 0) {
+            bird.change(LedSpriteProperty.Y, 1)
+        } else if (vu6 < 0) {
+            bird.change(LedSpriteProperty.Y, -1)
+        }
+    }
     while (obstacles.length > 0 && obstacles[0].get(LedSpriteProperty.X) == 0) {
         obstacles.removeAt(0).delete()
         zp += 1
@@ -36,6 +46,11 @@ basic.forever(function () {
         }
     }
     ticks += 1
-    bird.change(LedSpriteProperty.Y, input.rotation(Rotation.Pitch) / 15)
-    basic.pause(1000)
+    time = 1000 - ticks * 10
+    if (time > 0) {
+        basic.pause(time)
+    } else {
+        basic.pause(0)
+    }
+    bird.set(LedSpriteProperty.Blink, 300 - ticks * 10)
 })
