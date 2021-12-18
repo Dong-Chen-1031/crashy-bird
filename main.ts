@@ -26,6 +26,7 @@ let zp = 0
 let vu6 = 0
 let _ = false
 let bird: game.LedSprite = null
+game.pause()
 let index = 0
 bird = game.createSprite(0, 2)
 let ticks = 0
@@ -33,6 +34,9 @@ let obstacles: game.LedSprite[] = []
 _ = true
 bird.set(LedSpriteProperty.Blink, 500)
 game.setScore(0)
+while (input.buttonIsPressed(Button.AB)) {
+    game.resume()
+}
 basic.forever(function () {
     if (!(game.isPaused())) {
         if (_) {
