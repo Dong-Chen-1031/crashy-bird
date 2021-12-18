@@ -1,22 +1,20 @@
-input.onGesture(Gesture.ScreenDown, function () {
+input.onGesture(Gesture.ThreeG, function () {
     if (!(game.isPaused())) {
         game.pause()
         music.playTone(698, music.beat(BeatFraction.Quarter))
+    } else if (game.isPaused()) {
+        game.resume()
+        music.playTone(698, music.beat(BeatFraction.Quarter))
+        basic.pause(2000)
     }
 })
 input.onButtonPressed(Button.A, function () {
     bird.change(LedSpriteProperty.Y, -1)
 })
-input.onGesture(Gesture.ScreenUp, function () {
-    if (game.isPaused()) {
-        game.resume()
-        music.playTone(698, music.beat(BeatFraction.Quarter))
-    }
-    basic.pause(2000)
-})
 input.onButtonPressed(Button.AB, function () {
     _ = !(_)
     music.playTone(698, music.beat(BeatFraction.Quarter))
+    basic.pause(1000)
 })
 input.onButtonPressed(Button.B, function () {
     bird.change(LedSpriteProperty.Y, 1)
