@@ -1,23 +1,31 @@
 input.onGesture(Gesture.ThreeG, function () {
-    if (!(game.isPaused())) {
+    if (!(game.isPaused()) && game.isRunning()) {
         game.pause()
-        music.playTone(698, music.beat(BeatFraction.Quarter))
-    } else if (game.isPaused()) {
-        game.resume()
-        music.playTone(698, music.beat(BeatFraction.Quarter))
+        music.playTone(247, music.beat(BeatFraction.Whole))
+    } else if (game.isPaused() && game.isRunning()) {
+        music.playTone(247, music.beat(BeatFraction.Quarter))
         basic.pause(2000)
+        game.resume()
     }
 })
 input.onButtonPressed(Button.A, function () {
-    bird.change(LedSpriteProperty.Y, -1)
+    if (!(game.isPaused()) && game.isRunning()) {
+        bird.change(LedSpriteProperty.Y, -1)
+    }
 })
 input.onButtonPressed(Button.AB, function () {
-    _ = !(_)
-    music.playTone(698, music.beat(BeatFraction.Quarter))
-    basic.pause(1000)
+    if (game.isRunning()) {
+        _ = !(_)
+        music.playTone(523, music.beat(BeatFraction.Quarter))
+        game.pause()
+        basic.pause(1000)
+        game.resume()
+    }
 })
 input.onButtonPressed(Button.B, function () {
-    bird.change(LedSpriteProperty.Y, 1)
+    if (!(game.isPaused()) && game.isRunning()) {
+        bird.change(LedSpriteProperty.Y, 1)
+    }
 })
 let g03 = 0
 let time = 0
@@ -26,12 +34,7 @@ let zp = 0
 let vu6 = 0
 let bird: game.LedSprite = null
 let _ = false
-_ = false
-game.pause()
-while (!(input.buttonIsPressed(Button.AB))) {
-	
-}
-game.resume()
+_ = true
 let index = 0
 bird = game.createSprite(0, 2)
 let ticks = 0
