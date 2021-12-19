@@ -2,14 +2,14 @@ input.onGesture(Gesture.ThreeG, function () {
     if (!(game.isPaused()) && game.isRunning()) {
         game.pause()
         music.playTone(247, music.beat(BeatFraction.Whole))
-    } else if (game.isPaused() && game.isRunning()) {
+    } else if (game.isPaused()) {
         music.playTone(247, music.beat(BeatFraction.Quarter))
         basic.pause(2000)
         game.resume()
     }
 })
 input.onButtonPressed(Button.A, function () {
-    if (!(game.isPaused()) && game.isRunning()) {
+    if (game.isRunning()) {
         bird.change(LedSpriteProperty.Y, -1)
     }
 })
@@ -23,7 +23,7 @@ input.onButtonPressed(Button.AB, function () {
     }
 })
 input.onButtonPressed(Button.B, function () {
-    if (!(game.isPaused()) && game.isRunning()) {
+    if (game.isRunning()) {
         bird.change(LedSpriteProperty.Y, 1)
     }
 })
@@ -42,7 +42,7 @@ let obstacles: game.LedSprite[] = []
 bird.set(LedSpriteProperty.Blink, 500)
 game.setScore(0)
 basic.forever(function () {
-    if (!(game.isPaused())) {
+    if (game.isRunning()) {
         if (_) {
             vu6 = Math.round(input.rotation(Rotation.Pitch) / 15)
             for (let index = 0; index <= Math.abs(vu6) - 1; index++) {
