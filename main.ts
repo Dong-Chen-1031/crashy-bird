@@ -3,7 +3,7 @@ input.onGesture(Gesture.ThreeG, function () {
         game.pause()
         music.playTone(247, music.beat(BeatFraction.Whole))
     } else if (game.isPaused()) {
-        music.playTone(247, music.beat(BeatFraction.Quarter))
+        music.playTone(523, music.beat(BeatFraction.Quarter))
         basic.pause(2000)
         game.resume()
     }
@@ -59,6 +59,9 @@ basic.forever(function () {
             if (zp % 4 == 0) {
                 music.playTone(659, music.beat(BeatFraction.Quarter))
                 music.playTone(988, music.beat(BeatFraction.Quarter))
+            }
+            if (zp == 100) {
+                music.playMelody("C D E F E G A C5 ", 500)
             }
         }
         for (let obstacle2 of obstacles) {
